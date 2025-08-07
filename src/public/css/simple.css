@@ -1,0 +1,29 @@
+/* 全体の基本設定 */
+body {
+    margin: 0;
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+
+/* シンプルヘッダー */
+.simple-header {
+    background-color: #000;
+    /* 黒地 */
+    color: #fff;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* ロゴ */
+.simple-header .logo {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* メイン部分の余白 */
+main {
+    padding: 40px 20px;
+}
