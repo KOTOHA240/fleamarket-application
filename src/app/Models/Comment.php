@@ -10,7 +10,7 @@ class Item extends Model
     use HasFactory;
 }
 
-public function comments()
+public function user()
 {
-    return $this->hasMany(Comment::class);
+    return $this->belongsTo(User::class);
 }

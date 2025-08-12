@@ -1,5 +1,11 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 use App\Models\Item;
-// use Illuminate\Support\Facades\Auth; // ログイン機能が整ったら使う
+use App\Models\Comment;
+use Illuminate\Support\Facades\Auth; // ログイン機能が整ったら使う
 
 public function index(Request $request)
 {
@@ -20,4 +26,14 @@ public function index(Request $request)
     }
 
     return view('index', compact('items', 'tab'));
+}
+
+class ItemController extends Controller
+{
+    public function show($item_id)
+    {
+        $item = Item::with(['comments.user'])->findOrFail($item_id);
+
+        return view('item.show', compact('item'));
+    }
 }
