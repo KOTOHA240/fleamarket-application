@@ -1,23 +1,34 @@
+<?php
+
+namespace App\Http\Controllers;
+
 use App\Models\Item;
-// use Illuminate\Support\Facades\Auth; // ログイン機能が整ったら使う
+use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Auth; // 認証機能が整ったら使う
 
-public function index(Request $request)
+class ItemController extends Controller
 {
-    $tab = $request->query('tab', 'recommend');
+    public function index(Request $request)
+    {
+        // タブ判定（おすすめ or マイリスト）
+        $tab = $request->query('tab', 'recommended');
 
-    if ($tab === 'favorites') {
-        // 認証機能ができてから有効化予定
-        // if (Auth::check()) {
-        //     $user = Auth::user();
-        //     $items = $user->favorites()->latest()->get();
-        // } else {
-        //     $items = collect(); // 空のコレクション
-        // }
-        $items = collect(); // 今は仮で空データ
-    } else {
-        // おすすめ（全件表示）
-        $items = Item::latest()->get(); // モデルが未完成ならあとで定義
+        if ($tab === 'mylist') {
+            // 認証機能ができてから有効化予定
+            // if (Auth::check()) {
+            //     $user = Auth::user();
+            //     $myList = $user->favorites()->latest()->get();
+            // } else {
+            //     $myList = collect(); // 空のコレクション
+            // }
+            $myList = collect(); // 仮データ
+            $recommendedProducts = Item::latest()->get();
+        } else {
+            $recommendedProducts = Item::latest()->get(); // おすすめ商品一覧
+            $myList = collect(); // マイリストは空
+        }
+
+        return view('index', compact('recommendedProducts', 'myList'));
     }
-
-    return view('index', compact('items', 'tab'));
 }
+
