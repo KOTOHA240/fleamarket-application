@@ -1,0 +1,71 @@
+.sell-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sell-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.sell-form .form-group {
+    margin-bottom: 20px;
+}
+
+.sell-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.sell-form input[type="text"],
+.sell-form input[type="number"],
+.sell-form select,
+.sell-form textarea,
+.sell-form input[type="file"] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.sell-form textarea {
+    resize: vertical;
+}
+
+.required {
+    color: red;
+    font-size: 0.9em;
+}
+
+.error {
+    color: red;
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+
+.form-actions {
+    text-align: center;
+}
+
+.btn-sell {
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-sell:hover {
+    background-color: #e85b50;
+}

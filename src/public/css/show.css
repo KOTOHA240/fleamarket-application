@@ -1,0 +1,91 @@
+/* 商品詳細ページ全体の余白とレイアウト */
+.container {
+    display: flex;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    gap: 40px;
+}
+
+/* 左側の画像エリア */
+.container .w-1\/2 img {
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* 右側の商品情報エリア */
+.container .w-1\/2.pl-8 {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 商品名 */
+.container h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* ブランド名 */
+.container p.text-gray-500 {
+    font-size: 16px;
+    color: #666;
+}
+
+/* 価格表示 */
+.container p.text-xl {
+    font-size: 22px;
+    font-weight: bold;
+    color: #222;
+}
+
+.container p.text-xl span {
+    font-size: 14px;
+    color: #888;
+}
+
+/* いいね・コメント数 */
+.container .flex.items-center span {
+    font-size: 14px;
+    color: #555;
+}
+
+/* 見出し */
+.container h3 {
+    font-size: 18px;
+    margin-top: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+}
+
+/* 商品説明 */
+.container p {
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+/* コメント一覧 */
+.container .border {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fafafa;
+}
+
+/* コメントフォーム */
+.container textarea {
+    resize: vertical;
+    min-height: 80px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.container button {
+    background-color: #f05454;
+    border-radius: 6px;
+    padding: 8px 16px;
+    transition: 0.3s;
+}
+
+.container button:hover {
+    background-color: #d94343;
+}
