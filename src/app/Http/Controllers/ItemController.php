@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\RegisterRequest;
 
 class ItemController extends Controller
 {
@@ -73,6 +74,11 @@ class ItemController extends Controller
         ]);
 
         return redirect()->route('items.index')->with('success', '商品を出品しました');
+    }
+
+    public function app()
+    {
+        return view('sell');
     }
 }
 

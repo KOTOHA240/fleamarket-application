@@ -10,9 +10,7 @@ class MypageController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-
-        // タブの選択状態（sell または buy）
-        $tab = $request->query('page', 'sell');
+        $tab = $request->input('page', 'sell');
 
         return view('mypage.index', compact('user', 'tab'));
     }

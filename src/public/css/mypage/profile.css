@@ -39,6 +39,14 @@
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #ff5a5a;
+    outline: none;
 }
 
 .submit-button {
@@ -50,4 +58,31 @@
     font-size: 14px;
     cursor: pointer;
     margin-top: 10px;
+}
+
+.profile-icon {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    /* 丸型にしたい場合 */
+    border: 2px solid #ccc;
+}
+
+/* PC（幅1400px〜1540px） */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .profile-container {
+        width: 700px;
+        /* PC向けに横幅を広めに */
+        margin: 80px auto;
+    }
+}
+
+/* タブレット（幅768px〜850px） */
+@media (min-width: 768px) and (max-width: 850px) {
+    .profile-container {
+        width: 90%;
+        /* タブレットは画面幅に合わせて可変 */
+        margin: 40px auto;
+    }
 }

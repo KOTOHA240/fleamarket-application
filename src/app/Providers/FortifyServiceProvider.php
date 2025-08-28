@@ -10,7 +10,6 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -28,19 +27,25 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // ユーザー作成（登録処理）
         Fortify::createUsersUsing(CreateNewUser::class);
-        Fortify::registerView(function () {
-            return view('auth.register');
-        });
 
-        Fortify::loginView(function () {
-            return view('auth/login');
-        });
+        // 登録用View
+        Fortify::registerView(fn() => view('auth.register'));
 
+        // ログイン用View
+        Fortify::loginView(fn() => view('auth.login'));
+
+        // パスワードリセット等（必要に応じて）
+        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
+        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
+
+        // ログイン制限
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;
-
             return Limit::perMinute(10)->by($email . $request->ip());
         });
     }
 }
+

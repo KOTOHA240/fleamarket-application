@@ -19,8 +19,8 @@
 
         {{-- いいね＆コメント数 --}}
         <div class="stats">
-            <span>⭐ {{ $item->likes_count ?? 0 }}</span>
-            <span>💬 {{ $item->comments->count() }}</span>
+            <i class="fa-regular fa-star">{{ $item->comments->count() }}</i>
+            <i class="fa-regular fa-comment">{{ $item->comments->count() }}</i>
         </div>
 
         <h3>商品説明</h3>
@@ -50,4 +50,3 @@
     </div>
 </div>
 @endsection
-

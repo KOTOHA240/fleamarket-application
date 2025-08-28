@@ -1,14 +1,22 @@
-<!-- resources/views/layouts/simple.blade.php -->
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title')</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Fleamarket Application</title>
+    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/simple.css') }}">
+    @yield('css')
 </head>
+
 <body>
-    <header>
-        <h1>@yield('header')</h1>
+    <header class="simple-header">
+        <a href="{{ url('/') }}" class="logo-link">
+            <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH" class="logo-img">
+        </a>
     </header>
 
     <main>
@@ -16,5 +24,3 @@
     </main>
 </body>
 </html>
-
-

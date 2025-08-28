@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     use HasFactory;
-}
 
-public function comments()
-{
-    return $this->hasMany(Comment::class);
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
