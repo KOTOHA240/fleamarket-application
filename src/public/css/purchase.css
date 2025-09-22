@@ -1,76 +1,198 @@
-.address-edit-container {
-    width: 400px;
-    margin: 50px auto;
-    background: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+/* purchase.css */
+
+.purchase-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1000px;
+    margin: 40px auto;
+    gap: 40px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-.address-edit-container h2 {
-    text-align: center;
+/* 左側（商品詳細・配送情報） */
+.purchase-main {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 商品画像 + 商品名・価格を横並び */
+.purchase-product {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    /* 支払い方法の前に境界線 */
+    padding-bottom: 20px;
+}
+
+.purchase-image {
+    width: 200px;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.purchase-info h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.purchase-info p {
+    font-size: 18px;
     margin-bottom: 20px;
 }
 
-.alert-success {
-    background: #e0f8e0;
-    color: #2b7a2b;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
-    text-align: center;
+/* 支払い方法・配送先 */
+.purchase-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000;
 }
 
-.address-form .form-group {
-    margin-bottom: 15px;
-}
-
-.address-form label {
+.purchase-section label {
     display: block;
-    margin-bottom: 5px;
     font-weight: bold;
+    margin-bottom: 8px;
 }
 
-.address-form input[type="text"] {
+.purchase-section select {
     width: 100%;
     padding: 8px;
-    border: 1px solid #bbb;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.error {
-    color: #d9534f;
-    font-size: 13px;
+.purchase-section p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.purchase-section a {
+    display: inline-block;
     margin-top: 5px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
 }
 
-.form-buttons {
-    display: flex;
-    justify-content: space-between;
+.purchase-section a:hover {
+    text-decoration: underline;
 }
 
-.btn-submit {
-    background-color: #ff6b6b;
+/* 右側（サマリー） */
+.purchase-summary {
+    width: 300px;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.purchase-summary table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.purchase-summary td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* 購入ボタン */
+.purchase-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff4d4f;
     color: #fff;
-    padding: 8px 15px;
+    font-size: 16px;
+    font-weight: bold;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.btn-submit:hover {
-    opacity: 0.9;
+.purchase-btn:hover {
+    background-color: #e04344;
 }
 
-.btn-back {
-    display: inline-block;
-    padding: 8px 15px;
-    background-color: #ddd;
-    color: #333;
+/* 配送先ヘッダーを横並びにする */
+.address-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.address-header label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.address-header a {
+    font-size: 14px;
+    color: #007bff;
     text-decoration: none;
-    border-radius: 3px;
 }
 
-.btn-back:hover {
-    background-color: #ccc;
+.address-header a:hover {
+    text-decoration: underline;
+}
+
+.purchase-divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+/* タブレットサイズ (768〜850px) */
+@media (max-width: 850px) and (min-width: 768px) {
+    .purchase-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .purchase-main {
+        width: 100%;
+    }
+
+    .purchase-summary {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .purchase-product {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* PCサイズ (1400〜1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .purchase-container {
+        max-width: 1200px;
+        gap: 60px;
+    }
+
+    .purchase-image {
+        width: 250px;
+        max-height: 250px;
+    }
+
+    .purchase-info h2 {
+        font-size: 22px;
+    }
+
+    .purchase-info p {
+        font-size: 20px;
+    }
 }

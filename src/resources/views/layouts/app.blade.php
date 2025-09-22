@@ -18,21 +18,30 @@
             <a class="header__logo" href="{{ url('/') }}">
                 <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH" class="logo-img">
             </a>
+            <form class="search-form" action="{{ route('home') }}" method="GET">
+                <input type="text" name="keyword" placeholder="なにをお探しですか？" class="search-input" value="{{ request('keyword') }}">
+            </form>
             <div class="header-utilities">
-                <form class="search-form" action="/search" method="GET">
-                    <input type="text" name="keyword" placeholder="なにをお探しですか？" class="search-input">
-                </form>
                 <nav>
                     <ul class="header-nav">
                         <li class="header-nav__item">
                             <a class="header-nav__link" href="/mypage">マイページ</a>
                         </li>
+
+                        @auth
                         <li class="header-nav__item">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="logout-link">ログアウト</button>
                             </form>
                         </li>
+                        @endauth
+
+                        @guest
+                        <li class="header-nav__item">
+                            <a href="{{ route('login') }}" class="login-link">ログイン</a>
+                        </li>
+                        @endguest
                     </ul>
                 </nav>
                 <a href="{{ route('sell') }}" class="btn-sell">出品</a>

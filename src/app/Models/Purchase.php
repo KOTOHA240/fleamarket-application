@@ -5,16 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Purchase extends Model
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'body',
-        'user_id',
-        'item_id',
-    ];
-
+    protected $fillable = ['user_id', 'item_id'];
 
     public function user()
     {

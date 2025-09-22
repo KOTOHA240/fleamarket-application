@@ -1,135 +1,109 @@
-/* ===== ヘッダー全体 ===== */
+/* ヘッダー全体 */
 .header {
     background-color: #000;
     color: #fff;
-    padding: 12px 20px;
+    height: 80px;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .header__inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 20px;
+    width: 100%;
+    height: 100%;
 }
 
+/* ロゴ */
 .header__logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
+    flex: 0 0 auto;
+    /* 固定サイズ */
 }
 
-.header__logo .logo-img {
+.logo-img {
     height: 32px;
     width: auto;
-    display: block;
 }
 
-/* ===== 検索フォーム ===== */
+/* 検索フォーム（中央に伸縮） */
 .search-form {
-    flex: 1 1 420px;
-    /* ロゴとナビの間を伸ばす */
+    flex: 1;
+    /* 中央で伸縮 */
+    max-width: 600px;
+    /* PC幅の最大 */
     margin: 0 20px;
-    min-width: 260px;
+    /* 左右に余白 */
 }
 
 .search-input {
     width: 100%;
-    padding: 6px 12px;
+    padding: 8px 12px;
     border-radius: 4px;
     border: none;
+    box-sizing: border-box;
 }
 
-/* ===== 右側ユーティリティ（検索・ナビ・出品）を横並びに ===== */
+/* 右側ユーティリティ */
 .header-utilities {
-    display: flex !important;
+    flex: 0 0 auto;
+    /* 固定位置 */
+    display: flex;
     align-items: center;
-    gap: 20px;
-    flex-wrap: nowrap !important;
+    gap: 15px;
+    margin-left: auto;
+    /* 右端に寄せるポイント */
 }
 
-/* ===== ナビ（マイページ／ログアウト） ===== */
+/* ナビゲーション */
 .header-nav {
     list-style: none;
     display: flex;
-    gap: 16px;
+    gap: 12px;
     margin: 0;
     padding: 0;
 }
 
-.header-nav__item {
+/* 出品ボタン */
+.btn-sell {
+    min-width: 100px;
+    height: 45px;
     display: flex;
+    justify-content: center;
     align-items: center;
-}
-
-/* マイページ：白文字固定（visitedでも紫にしない） */
-.header-nav__link,
-.header-nav__link:link,
-.header-nav__link:visited,
-.header-nav__link:hover,
-.header-nav__link:active {
-    color: #fff !important;
+    font-size: 15px;
+    font-weight: 700;
+    border: 1px solid #000;
+    border-radius: 6px;
+    background: #fff;
+    color: #000;
     text-decoration: none;
 }
 
-/* ログアウト：白文字のフラットボタン */
-.header-nav__link {
-    background: none !important;
-    border: none !important;
-    color: #fff !important;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 0 !important;
-    line-height: 1;
+/* ヘッダーナビゲーション内のリンク */
+.header-nav__link,
+.login-link,
+.logout-link {
+    color: #fff;
+    text-decoration: none;
 }
 
-/* ===== 出品：白背景 × 黒文字のボタン風（100x50） ===== */
-.btn-sell {
-    width: 100px !important;
-    height: 50px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    font-size: 16px;
-    font-weight: 700;
-    border: 1px solid #000 !important;
-    border-radius: 6px;
-    background: #fff !important;
-    /* 白背景に固定 */
-    color: #000 !important;
-    /* 黒文字に固定 */
-    text-decoration: none !important;
-}
-
-/* 以前の「.header-utilities .btn-sell」等の強い指定を上書き */
-.header-utilities .btn-sell {
-    background: #fff !important;
-    color: #000 !important;
-    border-color: #000 !important;
-}
-
-/* ===== 縦書き対策（ヘッダー直下のリンク・ボタンを強制横書き）===== */
-.header a,
-.header button,
-.header nav,
-.header ul,
-.header li {
-    writing-mode: horizontal-tb !important;
-    text-orientation: mixed !important;
-    transform: none !important;
-    white-space: nowrap;
+.header-nav__link:hover,
+.login-link:hover,
+.logout-link:hover {
+    color: #ddd;
 }
 
 .logout-link {
     background: none;
     border: none;
-    color: white;
+    color: #fff;
     cursor: pointer;
-    font-size: 16px;
-    padding: 0;
+    font-size: 15px;
 }
 
 .logout-link:hover {
-    text-decoration: none;
+    color: #ddd;
 }
 
 /* ==== PCサイズ（1400～1540px） ==== */
@@ -151,28 +125,135 @@
     }
 }
 
-/* ==== タブレットサイズ（768～850px） ==== */
+/* タブレットサイズ（768～850px） */
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .header__inner {
-        flex-direction: column;
-        /* ロゴとメニューを縦並び */
-        align-items: flex-start;
-        gap: 10px;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .logo-img {
+        max-width: 160px;
     }
 
     .search-form {
-        width: 100%;
-        margin: 10px 0;
+        flex: 1 1 280px;
+        min-width: 0;
     }
 
     .header-utilities {
-        flex-wrap: wrap;
-        /* ボタンやナビを折り返し */
         gap: 10px;
     }
 
     .btn-sell {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+}
+
+/* ===== 検索フォームをPC幅で大きめに ===== */
+.search-form {
+    flex: 1 1 auto;
+    /* 余白に応じて伸縮 */
+    margin: 0 10px;
+    /* 左右の余白を詰める */
+    min-width: 300px;
+    /* 縮んでも最低限 */
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: none;
+}
+
+/* ===== ヘッダー右側（ナビ＋出品）を横並び固定 ===== */
+.header-utilities {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: nowrap;
+    /* 常に横並び、折り返さない */
+}
+
+/* ===== ナビ（マイページ／ログイン／ログアウト）を横並び固定 ===== */
+.header-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    /* 横並び強制 */
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.header-nav__item {
+    flex: 0 0 auto;
+    /* 縮めず横に並べる */
+    text-align: center;
+}
+
+/* 出品ボタンは幅可変だけど常に横並び */
+.btn-sell {
+    flex: 0 0 auto;
+    min-width: 100px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 700;
+    border: 1px solid #000;
+    border-radius: 6px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+}
+
+/* ===== スマホサイズ（〜767px） ===== */
+@media screen and (max-width: 767px) {
+    .header {
+        height: auto;
+        padding: 10px;
+    }
+
+    .header__inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .logo-img {
+        height: 28px;
+    }
+
+    .search-form {
         width: 100%;
-        max-width: 200px;
+        margin: 0;
+    }
+
+    .search-input {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .header-utilities {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .header-nav {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .btn-sell {
+        width: 100%;
+        font-size: 14px;
+        height: 40px;
     }
 }

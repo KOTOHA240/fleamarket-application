@@ -1,56 +1,125 @@
-.address-container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 30px;
+/* 全体レイアウト */
+.address-edit-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
     background-color: #fff;
 }
 
-.address-title {
+/* 見出し */
+.address-edit-container h2 {
     text-align: center;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
-.address-form .form-group {
-    margin-bottom: 20px;
+/* フォーム */
+.address-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.address-form label {
-    display: block;
+/* ラベルと入力 */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
     font-size: 14px;
-    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
 }
 
-.address-form input {
+.form-group input {
     width: 100%;
-    padding: 8px 10px;
+    height: 40px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 0 10px;
     font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
 }
 
-.form-button {
-    text-align: center;
-    margin-top: 30px;
-}
-
-.btn-update {
-    background-color: #ff6b6b;
-    color: white;
-    padding: 12px 40px;
-    border: none;
-    border-radius: 3px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.btn-update:hover {
-    opacity: 0.9;
-}
-
+/* エラーメッセージ */
 .error {
     color: red;
     font-size: 12px;
-    margin-top: 4px;
+    margin-top: 5px;
+}
+
+/* ボタン */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    width: 100%;
+    background-color: #f66;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 40px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-submit:hover {
+    background-color: #e55;
+}
+
+/* 成功メッセージ */
+.alert-success {
+    text-align: center;
+    padding: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* -------------------------
+   レスポンシブ対応
+------------------------- */
+
+/* PC幅 (1400px〜1540px) */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .address-edit-container {
+        max-width: 700px;
+    }
+
+    .form-group input {
+        height: 45px;
+        font-size: 15px;
+    }
+
+    .btn-submit {
+        font-size: 16px;
+        padding: 14px 50px;
+    }
+}
+
+/* タブレット幅 (768px〜850px) */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .address-edit-container {
+        max-width: 90%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .form-group input {
+        height: 38px;
+        font-size: 13px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+    }
 }

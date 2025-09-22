@@ -7,37 +7,50 @@ use App\Models\Item;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ExhibitionRequest;
+use App\Models\Like;
 
 class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        // タブ判定（おすすめ or マイリスト）
         $tab = $request->query('tab', 'recommended');
+        $keyword = $request->input('keyword'); // ← ここで必ず取得
 
         if ($tab === 'mylist') {
-            // 認証機能ができてから有効化予定
-            // if (Auth::check()) {
-            //     $user = Auth::user();
-            //     $myList = $user->favorites()->latest()->get();
-            // } else {
-            //     $myList = collect(); // 空のコレクション
-            // }
-            $myList = collect(); // 仮データ
-            $recommendedProducts = Item::latest()->get();
+            $recommendedProducts = Item::latest()->paginate(12);
+
+            if (auth()->check()) {
+                $likedItemIds = Like::where('user_id', auth()->id())->pluck('item_id')->toArray();
+                $myList = Item::whereIn('id', $likedItemIds)->get();
+
+            } else {
+                $mylist = collect();
+            }
         } else {
-            $recommendedProducts = Item::latest()->get(); // おすすめ商品一覧
-            $myList = collect(); // マイリストは空
+            $query = Item::query();
+
+            if (!empty($keyword)) {
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('name', 'LIKE', "%{$keyword}%")
+                        ->orWhere('brand', 'LIKE', "%{$keyword}%")
+                        ->orWhere('description', 'LIKE', "%{$keyword}%")
+                        ->orWhere('category', 'LIKE', "%{$keyword}%");
+                });
+            }
+
+            $recommendedProducts = $query->latest()->paginate(12);
+            $myList = collect();
         }
 
-        return view('index', compact('recommendedProducts', 'myList'));
+        return view('index', compact('recommendedProducts', 'myList', 'keyword'));
     }
 
-    public function show($item_id)
-    {
-        $item = Item::with(['comments.user'])->findOrFail($item_id);
 
-        return view('item.show', compact('item'));
+    public function show($id)
+    {
+        $item = Item::findOrFail($id);
+        return view('items.show', compact('item'));
     }
 
     public function sell()
@@ -51,7 +64,7 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'image' => 'required|image|max:2048',
+            'img_url' => 'required|image|max:5120',
             'categories' => 'required|array',
             'condition' => 'required|string',
             'name' => 'required|string|max:255',
@@ -60,26 +73,37 @@ class ItemController extends Controller
             'price' => 'required|numeric|min:1',
         ]);
 
-        $path = $request->file('image')->store('items', 'public');
+        $path = $request->file('img_url')->store('items', 'public');
+        $validated['img_url'] = $path;
 
         Item::create([
             'name' => $validated['name'],
             'brand' => $validated['brand'] ?? '',
             'description' => $validated['description'] ?? '',
             'price' => $validated['price'],
-            'image_path' => $path,
+            'img_url' => $path,
             'condition' => $validated['condition'],
             'category' => json_encode($validated['categories']),
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('items.index')->with('success', '商品を出品しました');
+        return redirect()->route('home')->with('success', '商品を出品しました');
     }
 
     public function app()
     {
         return view('sell');
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $items = Item::when($keyword, function ($query, $keyword) {
+        return $query->where('name', 'like', "%{$keyword}%")
+                     ->orWhere('brand', 'like', "%{$keyword}%");
+        })->paginate(10);
+
+    return view('items.index', compact('items', 'keyword'));
+    }
 }
-
-

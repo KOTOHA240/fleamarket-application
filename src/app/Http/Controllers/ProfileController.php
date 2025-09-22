@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -24,13 +25,18 @@ class ProfileController extends Controller
             'icon' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
+        // プロフィール画像を保存
         if ($request->hasFile('icon')) {
             $path = $request->file('icon')->store('icons', 'public');
             $data['icon'] = $path;
         }
 
+        // ユーザー情報を更新
         $user->update($data);
 
-        return redirect()->back()->with('success', 'プロフィールを更新しました');
+        // 更新後はトップページへ遷移（メッセージなし）
+        return redirect('/');
     }
 }
+
+

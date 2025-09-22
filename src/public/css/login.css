@@ -46,6 +46,13 @@ input {
     font-weight: bold;
 }
 
+.error {
+    color: red !important;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
 /* PC（幅1400px〜1540px） */
 @media (min-width: 1400px) and (max-width: 1540px) {
     .login-container {

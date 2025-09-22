@@ -1,109 +1,215 @@
-/* 商品詳細ページ全体の余白とレイアウト */
+/* 商品詳細ページ全体 */
 .container {
     display: flex;
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 40px auto;
     padding: 20px;
     gap: 40px;
 }
 
-/* 左側の画像エリア */
-.container .w-1\/2 img {
-    border-radius: 8px;
-    object-fit: cover;
+/* 左側（商品画像エリア） */
+.container .left {
+    flex: 1;
 }
 
-/* 右側の商品情報エリア */
-.container .w-1\/2.pl-8 {
+.container .left img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+/* 右側（商品情報エリア） */
+.container .right {
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
 
 /* 商品名 */
-.container h2 {
-    font-size: 28px;
+.container .right h2 {
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
 /* ブランド名 */
-.container p.text-gray-500 {
-    font-size: 16px;
+.container .right .brand {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* 価格 */
+.container .right .price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+.container .right .price span {
+    font-size: 14px;
     color: #666;
 }
 
-/* 価格表示 */
-.container p.text-xl {
-    font-size: 22px;
-    font-weight: bold;
-    color: #222;
-}
-
-.container p.text-xl span {
-    font-size: 14px;
-    color: #888;
-}
-
 /* いいね・コメント数 */
-.container .flex.items-center span {
-    font-size: 14px;
-    color: #555;
+.container .right .stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    color: #666;
 }
 
-/* 見出し */
-.container h3 {
+.container .right .stats i {
+    font-size: 14px;
+}
+
+/* 購入ボタン */
+.btn-purchase {
+    display: block;
+    width: 90%;
+    max-width: 300px;
+    background-color: #f05454;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px;
+    text-align: center;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.btn-purchase:hover {
+    background-color: #d94343;
+}
+
+/* セクション見出し */
+.container .right h3 {
     font-size: 18px;
     margin-top: 20px;
     border-bottom: 2px solid #eee;
     padding-bottom: 5px;
 }
 
-/* 商品説明 */
-.container p {
+/* 商品説明・商品情報 */
+.container .right p {
     margin-top: 8px;
     line-height: 1.6;
 }
 
-/* コメント一覧 */
-.container .border {
+/* コメント欄 */
+.comment-box {
     border: 1px solid #ddd;
     border-radius: 6px;
+    padding: 10px;
+    margin-top: 10px;
     background: #fafafa;
 }
 
-/* コメントフォーム */
-.container textarea {
+.comment-form textarea {
+    width: 100%;
     resize: vertical;
     min-height: 80px;
     border-radius: 6px;
     border: 1px solid #ccc;
+    margin-top: 10px;
+    padding: 8px;
 }
 
-.container button {
+.comment-form button {
+    display: block;
+    width: 90%;
+    max-width: 300px;
     background-color: #f05454;
+    color: #fff;
     border-radius: 6px;
     padding: 8px 16px;
+    margin-top: 10px;
     transition: 0.3s;
 }
 
-.container button:hover {
+.comment-form button:hover {
     background-color: #d94343;
 }
 
-/* PC（幅1400px〜1540px） */
-@media (min-width: 1400px) and (max-width: 1540px) {
-    .container {
-        width: 700px;
-        /* PC向けに横幅を広めに */
-        margin: 80px auto;
-    }
+/* いいね表示を縦並びに */
+.like-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
 }
 
-/* タブレット（幅768px〜850px） */
-@media (min-width: 768px) and (max-width: 850px) {
-    .container {
-        width: 90%;
-        /* タブレットは画面幅に合わせて可変 */
-        margin: 40px auto;
-    }
+.like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #f5c518;
+    /* いいね済みの色（黄色） */
+}
+
+.like-count {
+    font-size: 14px;
+    color: #333;
+}
+
+.comment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.comment-count {
+    font-size: 14px;
+    color: #333;
+}
+
+/* stats全体を横並びに */
+.stats {
+    display: flex;
+    gap: 30px;
+    /* アイコン同士の横間隔 */
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* 各アイコン＋数字のセットを縦並びに */
+.stat-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 40px;
+    height: 50px;
+    justify-content: center;
+}
+
+/* いいねボタン */
+.like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #f5c518;
+}
+
+/* 共通の数字表示 */
+.stat-count {
+    font-size: 13px;
+    color: #333;
+}
+
+.stat-block i,
+.like-button i {
+    font-size: 20px;
+    line-height: 1;
+    display: block;
+}
+
+.comment-section i {
+    color: #666;
 }

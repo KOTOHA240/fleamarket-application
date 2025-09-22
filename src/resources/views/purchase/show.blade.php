@@ -8,11 +8,12 @@
 @section('content')
 <div class="purchase-container">
     <div class="purchase-main">
-        <img src="{{ asset('storage/' . $item->image_path) }}" alt="商品画像" class="purchase-image">
-
-        <div class="purchase-info">
-            <h2>{{ $item->name }}</h2>
-            <p>¥{{ number_format($item->price) }}</p>
+        <div class="purchase-product">
+            <img src="{{ asset('storage/' . $item->img_url) }}" alt="商品画像" class="purchase-image">
+            <div class="purchase-info">
+                <h2>{{ $item->name }}</h2>
+                <p>¥{{ number_format($item->price) }}</p>
+            </div>
         </div>
 
         <div class="purchase-section">
@@ -24,12 +25,15 @@
             </select>
         </div>
 
-        <div class="purchase-section">
-            <label>配送先</label>
-            <p>〒 {{ $user->postal_code ?? 'XXX-YYYY' }}<br>
-                {{ $user->address ?? '住所未登録' }}
+        <div class="purchase-section address-section">
+            <div class="address-header">
+                <label>配送先</label>
+                <a href="{{ route('purchase.address.edit', $item->id) }}">変更する</a>
+            </div>
+            <p>〒 {{ $purchaseAddress->post_code ?? $user->post_code ?? 'XXX-YYYY' }}<br>
+                {{ $purchaseAddress->address ?? $user->address ?? '住所未登録' }}
+                {{ $purchaseAddress->building ?? $user->building ?? '' }}
             </p>
-            <a href="{{ route('purchase.address', $item->id) }}">変更する</a>
         </div>
     </div>
 
@@ -44,7 +48,28 @@
                 <td id="selected-method">-</td>
             </tr>
         </table>
-        <button class="purchase-btn">購入する</button>
+        <form id="purchase-form" method="POST">
+            @csrf
+            <button type="submit" class="purchase-btn">購入する</button>
+        </form>
+
+        <script>
+        document.getElementById('purchase-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const method = document.getElementById('payment_method').value;
+
+            if (method === 'カード払い') {
+                this.action = "{{ route('purchase.checkout', $item->id) }}";
+            } else if (method === 'コンビニ払い') {
+                this.action = "{{ route('purchase.checkout.konbini', $item->id) }}";
+            } else {
+                alert('支払い方法を選択してください');
+                return;
+            }
+
+            this.submit();
+        });
+        </script>
     </div>
 </div>
 

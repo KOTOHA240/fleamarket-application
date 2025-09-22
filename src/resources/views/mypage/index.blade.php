@@ -28,12 +28,18 @@
 
     {{-- 商品一覧 --}}
     <div class="product-grid">
-        @for($i = 0; $i < 8; $i++)
+        @forelse($products as $product)
             <div class="product-card">
-                <div class="image">商品画像</div>
-                <p>商品名</p>
+                <a href="{{ route('items.show', $product->id) }}">
+                    <div class="image">
+                        <img src="{{ asset('storage/' . $product->img_url) }}" alt="{{ $product->name }}">
+                    </div>
+                    <p>{{ $product->name }}</p>
+                </a>
             </div>
-        @endfor
+        @empty
+            <p>{{ $tab === 'sell' ? '出品した商品はありません。' : '購入した商品はありません。' }}</p>
+        @endforelse
     </div>
 </div>
 @endsection

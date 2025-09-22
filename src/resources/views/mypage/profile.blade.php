@@ -9,23 +9,25 @@
     <h2 class="profile-title">プロフィール設定</h2>
 
     <div class="profile-image">
-        @if(auth()->user()->icon)
-            <img src="{{ asset('storage/' . auth()->user()->icon) }}" alt="プロフィール画像" class="profile-icon">
-        @else
-            <img src="{{ asset('images/default-user.png') }}" alt="プロフィール画像" class="profile-icon">
-        @endif
+        <div class="profile-image-row">
+            <div class="profile-icon-wrapper">
+                @if(auth()->user()->icon)
+                    <img id="preview" src="{{ asset('storage/' . auth()->user()->icon) }}" alt="プロフィール画像" class="profile-icon">
+                @else
+                    <div class="profile-icon-placeholder">No Image</div>
+                @endif
+            </div>
 
-        <label for="icon" class="image-select-button">画像を選択する</label>
-        <input type="file" id="icon" name="icon" accept="image/*" style="display:none;">
+            <button type="button" class="image-select-button" onclick="document.getElementById('icon').click()">
+                画像を選択する
+            </button>
+        </div>
     </div>
 
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <div class="form-group">
-            <label for="icon">プロフィール画像</label>
-            <input type="file" id="icon" name="icon" accept="image/*">
-        </div>
+        <input type="file" id="icon" name="icon" accept="image/*" style="display:none;">
 
         <div class="form-group">
             <label for="name">ユーザー名</label>
@@ -51,4 +53,17 @@
     </form>
 
 </div>
+
+<script>
+    document.getElementById('icon').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 @endsection
