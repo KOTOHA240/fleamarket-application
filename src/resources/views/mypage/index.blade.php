@@ -9,8 +9,8 @@
 
     {{-- プロフィール --}}
     <div class="profile-section">
-        <img src="{{ $user->icon_path ? asset('storage/' . $user->icon_path) : asset('images/default-icon.png') }}"
-             alt="ユーザーアイコン">
+        <img src="{{ $user->icon ? asset('storage/' . $user->icon) : asset('images/default-icon.png') }}"
+                alt="ユーザーアイコン">
 
         <div class="profile-info">
             <h2>{{ $user->name }}</h2>

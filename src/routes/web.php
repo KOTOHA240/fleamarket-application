@@ -10,6 +10,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\LikeController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', [ItemController::class, 'index'])->middleware('verified');
 
 // 未ログインでも見れる部分
 Route::get('/', [ItemController::class, 'index'])->name('home');
@@ -43,3 +48,6 @@ Route::get('/purchase/cancel', [StripeController::class, 'cancel'])->name('purch
 Route::post('/purchase/{item}/checkout-konbini', [StripeController::class, 'checkoutKonbini'])
     ->name('purchase.checkout.konbini');
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

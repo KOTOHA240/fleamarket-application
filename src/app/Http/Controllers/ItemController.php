@@ -39,6 +39,10 @@ class ItemController extends Controller
                 });
             }
 
+            if (auth()->check()) {
+                $query->where('user_id', '!=', auth()->id());
+            }
+
             $recommendedProducts = $query->latest()->paginate(12);
             $myList = collect();
         }
@@ -83,7 +87,7 @@ class ItemController extends Controller
             'price' => $validated['price'],
             'img_url' => $path,
             'condition' => $validated['condition'],
-            'category' => json_encode($validated['categories']),
+            'category' => implode(',', $validated['categories']),
             'user_id' => auth()->id(),
         ]);
 

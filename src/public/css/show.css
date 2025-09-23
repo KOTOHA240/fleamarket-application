@@ -213,3 +213,26 @@
 .comment-section i {
     color: #666;
 }
+
+.stat-block form,
+.stat-block i {
+    display: block;
+    line-height: 1;
+}
+
+.stat-block .like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #f5c518;
+    padding: 0;
+    margin: 0;
+    transform: translateY(1px);
+    /* 微調整で縦揃え */
+}
+
+.stat-count {
+    font-size: 13px;
+    color: #333;
+}

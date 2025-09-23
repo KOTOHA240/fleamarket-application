@@ -19,8 +19,8 @@
 
         {{-- いいね＆コメント数 --}}
         <div class="stats">
-            @auth
-                <div class="stat-block">
+            <div class="stat-block">
+                @auth
                     <form action="{{ $item->isLikedBy(auth()->user()) ? route('items.unlike', $item->id) : route('items.like', $item->id) }}" method="POST">
                         @csrf
                         @if($item->isLikedBy(auth()->user()))
@@ -30,9 +30,12 @@
                             <button type="submit" class="like-button"><i class="fa-regular fa-star"></i></button>
                         @endif
                     </form>
-                    <span class="stat-count">{{ $item->likes->count() }}</span>
-                </div>
-            @endauth
+                @else
+                    <i class="fa-regular fa-star like-button"></i>
+                @endauth
+
+                <span class="like-count">{{ $item->likes->count() }}</span>
+            </div>
 
             <div class="stat-block">
                 <i class="fa-regular fa-comment"></i>
