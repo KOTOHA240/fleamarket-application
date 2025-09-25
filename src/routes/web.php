@@ -11,10 +11,11 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\LikeController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [ItemController::class, 'index'])->middleware('verified');
+Route::get('/home', [ItemController::class, 'index'])->middleware('verified')->name('home');
 
 // 未ログインでも見れる部分
 Route::get('/', [ItemController::class, 'index'])->name('home');
@@ -35,7 +36,7 @@ Route::middleware('auth')->group(function () {
 
     // マイページ
     Route::get('/mypage', [MypageController::class, 'index'])->name('mypage.index');
-    Route::get('/mypage/profile', [MypageController::class, 'edit'])->name('mypage.profile.edit');
+    Route::get('/mypage/profile', [MypageController::class, 'edit'])->middleware('verified')->name('mypage.profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::post('/items/{item}/like', [LikeController::class, 'store'])->name('items.like');
@@ -49,5 +50,9 @@ Route::post('/purchase/{item}/checkout-konbini', [StripeController::class, 'chec
     ->name('purchase.checkout.konbini');
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
 Auth::routes();
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    return back()->with('message', '認証メールを再送しました！');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
