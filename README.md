@@ -50,7 +50,7 @@ php artisan db:seed
 
 ## ER 図
 
-![ER図](src/index.drawio.png)
+![ER図](./src/index.drawio.png)
 
 ## URL
 
