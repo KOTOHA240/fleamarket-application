@@ -67,9 +67,14 @@
         {{-- コメント欄 --}}
         <h3>コメント ({{ $item->comments->count() }})</h3>
         @foreach($item->comments as $comment)
-            <div class="comment-box">
-                <strong>{{ $comment->user->name }}</strong>
-                <p>{{ $comment->body }}</p>
+            <div class="comment-item">
+                <div class="comment-user">
+                    <img src="{{ $comment->user->icon_url ?? '/images/default-icon.png' }}" class="user-icon"  alt="ユーザーアイコン">
+                    <span class="user-name">{{ $comment->user->name }}</span>
+                </div>
+                <div class="comment-content">
+                    {{ $comment->body }}
+                </div>
             </div>
         @endforeach
 
@@ -77,7 +82,10 @@
         @auth
             <form action="{{ route('comments.store', $item->id) }}" method="POST" class="comment-form">
                 @csrf
-                <textarea name="body" placeholder="商品のコメントを入力してください"></textarea>
+                <textarea name="body" placeholder="商品のコメントを入力してください">{{ old('body') }}</textarea>
+                @error('body')
+                <div class="error">{{ $message }}</div>
+                @enderror
                 <button type="submit">コメントを送信する</button>
             </form>
         @endauth

@@ -90,6 +90,7 @@
 /* 右側（サマリー） */
 .purchase-summary {
     width: 300px;
+    flex-shrink: 0;
     background: #fff;
     border: 1px solid #ddd;
     padding: 20px;
@@ -152,6 +153,16 @@
     border: none;
     border-top: 1px solid #ddd;
     margin: 20px 0;
+}
+
+/* バリデーションエラーメッセージ */
+.error {
+    color: #d93025;
+    /* 視認性の高い赤。Google風の警告色 */
+    font-size: 13px;
+    /* 少し小さめで控えめに */
+    margin-top: 6px;
+    margin-bottom: 4px;
 }
 
 /* タブレットサイズ (768〜850px) */

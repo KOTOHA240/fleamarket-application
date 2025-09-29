@@ -22,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->string('img_url');
             $table->string('condition');
             $table->boolean('is_sold')->default(false);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

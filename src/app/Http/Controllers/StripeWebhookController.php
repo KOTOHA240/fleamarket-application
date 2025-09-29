@@ -14,32 +14,34 @@ class StripeWebhookController extends Controller
 {
     public function handleWebhook(Request $request)
     {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
         $payload = $request->getContent();
         $sigHeader = $request->header('Stripe-Signature');
-        $secret = env('STRIPE_WEBHOOK_SECRET');
+        $event = null;
 
         try {
-            $event = Webhook::constructEvent(
-                $payload, $sigHeader, $secret
+            $event = \Stripe\Webhook::constructEvent(
+                $payload, $sig_header, env('STRIPE_WEBHOOK_SECRET')
             );
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
+            return response()->json(['error' => 'Webhook Error'], 400);
         }
 
         if ($event->type === 'checkout.session.completed') {
             $session = $event->data->object;
 
-            // メタデータから商品IDを取得
-            $itemId = $session->metadata->item_id ?? null;
-            $userId = $session->metadata->user_id ?? null;
+            if ($session->payment_method_types[0] === 'konbini') {
+                $item_id = $session->metadata->item_id;
+                $user_id = $session->metadata->user_id;
 
-            if ($itemId && $userId) {
-                $item = Item::find($itemId);
+                $item = Item::find($item_id);
                 if ($item && !$item->is_sold) {
                     Purchase::create([
-                        'user_id' => $userId,
-                        'item_id' => $itemId,
+                        'user_id' => $user_id,
+                        'item_id' => $item_id,
+                        'payment_method' => 'コンビニ払い',
                     ]);
+
                     $item->is_sold = true;
                     $item->save();
                 }

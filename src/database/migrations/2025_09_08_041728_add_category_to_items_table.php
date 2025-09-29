@@ -14,7 +14,7 @@ class AddCategoryToItemsTable extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->text('category')->after('condition');
+            $table->text('category')->nullable()->after('condition');
         });
     }
 

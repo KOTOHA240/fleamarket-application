@@ -7,6 +7,8 @@ use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\PurchaseAddress;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PurchaseRequest;
+use App\Http\Controllers\StripeController;
 
 class PurchaseController extends Controller
 {
@@ -60,21 +62,29 @@ class PurchaseController extends Controller
                         ->with('success', '住所を更新しました');
     }
 
-    public function store(Item $item)
+    public function store(PurchaseRequest $request, Item $item)
     {
         if ($item->is_sold) {
             return redirect()->back()->with('error', 'この商品はすでに売り切れです。');
         }
 
-        Purchase::create([
-            'user_id' => Auth::id(),
-            'item_id' => $item->id,
-        ]);
+        $address = PurchaseAddress::where('user_id', Auth::id())
+                                    ->where('item_id', $item->id)
+                                    ->first();
 
-        $item->is_sold = true;
-        $item->save();
+        if (!$address) {
+            return redirect()->back()->withErrors([
+                'address' => '配送先を登録してください',
+            ]);
+        }
 
-        return redirect()->route('home')->with('success', '商品を購入しました！');
+        if ($request->payment_method === 'カード払い') {
+            return app(StripeController::class)->checkout($request, $item);
+        } elseif ($request->payment_method === 'コンビニ払い') {
+            return app(StripeController::class)->checkoutKonbini($request, $item);
+        }
+
+        return redirect()->back()->withErrors(['paymant_method' => '支払い方法が不正です']);
     }
 }
 

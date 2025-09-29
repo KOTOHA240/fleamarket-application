@@ -15,17 +15,28 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('tab', 'recommended');
-        $keyword = $request->input('keyword'); // ← ここで必ず取得
+        $keyword = $request->input('keyword');
 
         if ($tab === 'mylist') {
             $recommendedProducts = Item::latest()->paginate(12);
 
             if (auth()->check()) {
-                $likedItemIds = Like::where('user_id', auth()->id())->pluck('item_id')->toArray();
-                $myList = Item::whereIn('id', $likedItemIds)->get();
+                $likedItemIds = Like::where('user_id', auth()->id())->pluck('item_id');
+                $myListQuery = Item::whereIn('id', $likedItemIds);
+
+                if (!empty($keyword)) {
+                    $myListQuery->where(function ($q) use ($keyword) {
+                        $q->where('name', 'LIKE', "%{$keyword}%")
+                            ->orWhere('brand', 'LIKE', "%{$keyword}%")
+                            ->orWhere('description', 'LIKE', "%{$keyword}%")
+                            ->orWhere('category', 'LIKE', "%{$keyword}%");
+                    });
+                }
+
+                $myList = $myListQuery->get();
 
             } else {
-                $mylist = collect();
+                $myList = collect();
             }
         } else {
             $query = Item::query();

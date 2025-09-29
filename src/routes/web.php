@@ -13,8 +13,6 @@ use App\Http\Controllers\LikeController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
-Auth::routes(['verify' => true]);
-
 Route::get('/home', [ItemController::class, 'index'])->middleware('verified')->name('home');
 
 // 未ログインでも見れる部分
@@ -49,7 +47,6 @@ Route::get('/purchase/cancel', [StripeController::class, 'cancel'])->name('purch
 Route::post('/purchase/{item}/checkout-konbini', [StripeController::class, 'checkoutKonbini'])
     ->name('purchase.checkout.konbini');
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
-Auth::routes();
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 

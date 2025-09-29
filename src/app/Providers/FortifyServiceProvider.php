@@ -9,15 +9,21 @@ use App\Actions\Fortify\UpdateUserProfileInformation;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Cache\RateLimiting\Limit as RateLimit;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
-    public function register(): void
+    public function register()
     {
         //
     }
@@ -25,26 +31,42 @@ class FortifyServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot()
     {
-        // ユーザー作成（登録処理）
-        Fortify::createUsersUsing(CreateNewUser::class);
+        // ログイン画面の表示
+        Fortify::loginView(function () {
+            return view('auth.login'); // login.blade.php のパス
+        });
 
-        // 登録用View
-        Fortify::registerView(fn() => view('auth.register'));
+        // 会員登録画面の表示
+        Fortify::registerView(function () {
+            return view('auth.register'); // register.blade.php のパス
+        });
 
-        // ログイン用View
-        Fortify::loginView(fn() => view('auth.login'));
+        // ログイン処理の定義
+        Fortify::authenticateUsing(function ($request) {
+            Validator::make($request->all(), [
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+            ], [
+                'email.required' => 'メールアドレスを入力してください',
+                'email.email' => 'メールアドレスの形式が正しくありません',
+                'password.required' => 'パスワードを入力してください',
+            ])->validate();
 
-        // パスワードリセット等（必要に応じて）
-        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
-        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
+            $user = User::where('email', $request->email)->first();
 
-        // ログイン制限
+            if ($user && Hash::check($request->password, $user->password)) {
+                return $user;
+            }
+
+            throw ValidationException::withMessages([
+                'email' => ['ログイン情報が登録されていません'],
+            ]);
+        });
+
         RateLimiter::for('login', function (Request $request) {
-            $email = (string) $request->email;
-            return Limit::perMinute(10)->by($email . $request->ip());
+            return RateLimit::perMinute(20)->by($request->ip());
         });
     }
 }

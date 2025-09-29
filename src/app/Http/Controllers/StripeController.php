@@ -75,6 +75,12 @@ class StripeController extends Controller
                 'コンビニ支払いの受付が完了しました。お支払い完了後に購入が確定します。'
             );
         }
+
+        Purchase::create([
+            'user_id' => Auth::id(),
+            'item_id' => $item->id,
+            'payment_method' => 'カード払い',
+        ]);
     }
 
     public function cancel()

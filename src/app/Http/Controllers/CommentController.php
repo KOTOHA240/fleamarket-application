@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Comment;
+use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, $item_id)
+    public function store(CommentRequest $request, $item_id)
     {
         $request->validate([
-            'body' => 'required|string|max255'
+            'body' => 'required|string|max:255',
         ]);
 
         Comment::create([
@@ -20,6 +21,6 @@ class CommentController extends Controller
             'body' => $request->body,
         ]);
 
-        return redirect()->route('items.show', $item_id)->with('success', 'コメントを投稿しました');
+        return redirect()->route('items.show', $item_id)->with('message', 'コメントを投稿しました');
     }
 }
