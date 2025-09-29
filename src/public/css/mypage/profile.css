@@ -98,6 +98,12 @@
     margin-bottom: 20px;
 }
 
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 4px;
+}
+
 /* PC（幅1400px〜1540px） */
 @media (min-width: 1400px) and (max-width: 1540px) {
     .profile-container {

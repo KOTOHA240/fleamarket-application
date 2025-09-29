@@ -9,6 +9,7 @@ use App\Models\PurchaseAddress;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Controllers\StripeController;
+use App\Http\Requests\AddressRequest;
 
 class PurchaseController extends Controller
 {
@@ -38,14 +39,8 @@ class PurchaseController extends Controller
         ]);
     }
 
-    public function updateAddress(Request $request, $item_id)
+    public function updateAddress(AddressRequest $request, $item_id)
     {
-        $request->validate([
-            'post_code' => 'required|string|max:10',
-            'address' => 'required|string|max:255',
-            'building' => 'nullable|string|max:255',
-        ]);
-
         $user = auth()->user();
 
         // 購入時の住所情報を保存（Userの住所ではなく、注文用のアドレステーブルを使うのがおすすめ）

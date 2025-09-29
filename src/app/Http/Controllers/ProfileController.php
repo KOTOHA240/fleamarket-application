@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,17 +13,10 @@ class ProfileController extends Controller
         return view('mypage.profile');
     }
 
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
         $user = Auth::user();
-
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'post_code' => 'nullable|string|max:10',
-            'address' => 'nullable|string|max:255',
-            'building' => 'nullable|string|max:255',
-            'icon' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-        ]);
+        $data = $request->validated();
 
         // プロフィール画像を保存
         if ($request->hasFile('icon')) {

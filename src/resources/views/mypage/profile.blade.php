@@ -28,25 +28,40 @@
         @csrf
 
         <input type="file" id="icon" name="icon" accept="image/*" style="display:none;">
+        @error('icon')
+            <p class="error">{{ $message }}</p>
+        @enderror
 
         <div class="form-group">
             <label for="name">ユーザー名</label>
             <input type="text" id="name" name="name" value="{{ old('name', auth()->user()->name) }}">
+            @error('name')
+                <p class="error">{{ $message }}</p>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="post_code">郵便番号</label>
             <input type="text" id="post_code" name="post_code" value="{{ old('post_code', auth()->user()->post_code) }}">
+            @error('post_code')
+                <p class="error">{{ $message }}</p>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="address">住所</label>
             <input type="text" id="address" name="address" value="{{ old('address', auth()->user()->address) }}">
+            @error('address')
+                <p class="error">{{ $message }}</p>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="building">建物名</label>
             <input type="text" id="building" name="building" value="{{ old('building', auth()->user()->building) }}">
+            @error('building')
+                <p class="error">{{ $message }}</p>
+            @enderror
         </div>
 
         <button type="submit" class="submit-button">更新する</button>
