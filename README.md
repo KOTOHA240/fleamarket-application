@@ -44,7 +44,7 @@ php artisan db:seed
 
 ## 使用技術
 
-- PHP8.1.33
+- PHP8.2.29
 - Laravel8.83.29
 - MySQL8.0.26
 
