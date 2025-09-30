@@ -14,10 +14,17 @@
         {{-- 商品画像 --}}
         <div class="form-group">
             <label for="img_url">商品画像 <span class="required">*</span></label>
-            <label  class="img_url-upload-box" for="img_url">
-                <span>画像を選択する</span>
-            </label>
-            <input type="file" name="img_url" id="img_url" accept="image/*">
+
+            <div class="img-preview-wrapper">
+                <label  class="img_url-upload-box" for="img_url">
+                    <span>画像を選択する</span>
+                </label>
+                <input type="file" name="img_url" id="img_url" accept="image/*">
+                <div id="preview-area">
+                    <img id="preview-image" src="" alt="プレビュー画像" style="display: none;" />
+                </div>
+            </div>
+
             @error('img_url')
                 <p class="error">{{ $message }}</p>
             @enderror
@@ -124,4 +131,34 @@
         </div>
     </form>
 </div>
+@endsection
+
+@section('script')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('img_url');
+    const preview = document.getElementById('preview-image');
+
+    if (!input || !preview) {
+        console.error('img_url または preview-image が見つかりません');
+        return;
+    }
+
+    input.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    });
+});
+</script>
 @endsection
