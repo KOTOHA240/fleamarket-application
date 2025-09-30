@@ -179,7 +179,7 @@
     margin-top: 30px;
 }
 
-.btn-sell {
+.btn-sell-button {
     display: block;
     width: 100%;
     /* ← input と同じ幅に */
@@ -200,7 +200,7 @@
     margin: 0 auto;
 }
 
-.btn-sell:hover {
+.btn-sell-button:hover {
     background-color: #e14a4a;
 }
 
@@ -246,7 +246,7 @@
 }
 
 /* 出品ボタンの最優先ルール */
-.sell-form .btn-sell {
+.sell-form .btn-sell-button {
     display: block;
     width: 100% !important;
     /* ← 強制的に横幅いっぱい */

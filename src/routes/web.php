@@ -54,6 +54,3 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', '認証メールを再送しました！');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('/test-binding', function () {
-    return app(CreatesNewUsers::class)::class;
-});

@@ -120,7 +120,7 @@
 
         {{-- 出品ボタン --}}
         <div class="form-actions">
-            <button type="submit" class="btn-sell">出品する</button>
+            <button type="submit" class="btn-sell-button">出品する</button>
         </div>
     </form>
 </div>
