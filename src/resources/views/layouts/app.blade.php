@@ -19,6 +19,7 @@
                 <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH" class="logo-img">
             </a>
             <form class="search-form" action="{{ route('home') }}" method="GET">
+                <input type="hidden" name="tab" value="{{ request('tab', 'recommended') }}">
                 <input type="text" name="keyword" placeholder="なにをお探しですか？" class="search-input" value="{{ request('keyword') }}">
             </form>
             <div class="header-utilities">
