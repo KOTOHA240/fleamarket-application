@@ -42,6 +42,12 @@ php artisan migrate
 php artisan db:seed
 ```
 
+8. ストレージリンクの作成(画像表示に必要)
+
+```bash
+php artisan storage:link
+```
+
 ## 使用技術
 
 - PHP8.2.29
