@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
@@ -17,6 +16,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
+use App\Actions\Fortify\CreateNewUser as CreateNewUserAction;
+use Laravel\Fortify\Contracts\VerifyEmailViewResponse;
+use App\Responses\VerifyEmailViewResponseImpl;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -25,7 +28,8 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(CreatesNewUsers::class, CreateNewUserAction::class);
+        $this->app->singleton(VerifyEmailViewResponse::class, VerifyEmailViewResponseImpl::class);
     }
 
     /**
@@ -70,4 +74,5 @@ class FortifyServiceProvider extends ServiceProvider
         });
     }
 }
+
 
