@@ -11,11 +11,10 @@
     <div class="profile-image">
         <div class="profile-image-row">
             <div class="profile-icon-wrapper">
-                @if(auth()->user()->icon)
-                    <img id="preview" src="{{ asset('storage/' . auth()->user()->icon) }}" alt="プロフィール画像" class="profile-icon">
-                @else
-                    <div class="profile-icon-placeholder">No Image</div>
-                @endif
+                <img id="preview"
+                    src="{{ auth()->user()->icon ? asset('storage/' . auth()->user()->icon) : '' }}"
+                    alt="プロフィール画像"
+                    class="profile-icon no-image">
             </div>
 
             <button type="button" class="image-select-button" onclick="document.getElementById('icon').click()">

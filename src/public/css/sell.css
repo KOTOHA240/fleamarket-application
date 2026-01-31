@@ -1,3 +1,6 @@
+/* ================================
+   全体レイアウト
+================================ */
 .sell-container {
     max-width: 700px;
     margin: 40px auto;
@@ -16,12 +19,13 @@
     text-align: center;
 }
 
-/* 各フォーム要素 */
+/* ================================
+   フォーム共通
+================================ */
 .sell-form .form-group {
     margin-bottom: 24px;
 }
 
-/* ラベル */
 .sell-form label {
     display: block;
     margin-bottom: 10px;
@@ -29,7 +33,19 @@
     color: #000;
 }
 
-/* 入力欄共通 */
+.required {
+    color: red;
+    font-size: 0.85em;
+    margin-left: 4px;
+}
+
+.error {
+    color: red;
+    font-size: 0.85em;
+    margin-top: 6px;
+}
+
+/* 入力欄 */
 .sell-form input[type="text"],
 .sell-form input[type="number"],
 .sell-form select,
@@ -55,219 +71,53 @@
     min-height: 100px;
 }
 
-/* 必須マーク */
-.required {
-    color: red;
-    font-size: 0.85em;
-    margin-left: 4px;
-}
-
-/* エラーメッセージ */
-.error {
-    color: red;
-    font-size: 0.85em;
-    margin-top: 6px;
-}
-
-/* 商品画像アップロード部分 */
-#image {
-    display: none;
-}
-
-.image-upload-box {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 2px solid red;
-    background-color: #fff;
-    color: red;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.image-upload-box:hover {
-    border-color: #ffe5e5;
-}
-
-#image {
-    display: none;
-}
-
-.image-upload-box span {
-    display: inline-block;
-    background: #ff6f61;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* カテゴリのタグ選択 */
-.category-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.category-tags label {
-    display: inline-block;
-    padding: 8px 16px;
-    border: 1px solid #ff6f61;
-    border-radius: 20px;
-    background: #fff;
-    color: #ff6f61;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.category-tags input[type="checkbox"] {
-    display: none;
-}
-
-.category-tags input[type="checkbox"]:checked+label {
-    background: #ff6f61;
-    color: #fff;
-}
-
-.category-tags label {
-    display: inline-block;
-    padding: 6px 12px;
-    border: 1px solid #FF5655;
-    border-radius: 20px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-}
-
-.category-tags input[type="checkbox"]:checked+label {
-    background-color: #ffcccc;
-    border-color: red;
-    color: red;
-}
-
-.category-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.category-options label {
-    border: 1px solid #ff5655;
-    padding: 6px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    color: #ff5655;
-    background-color: white;
-    font-size: 14px;
-}
-
-.category-options input[type="radio"] {
-    display: none;
-}
-
-.category-options input[type="radio"]:checked+span {
-    background-color: #ff5655;
-    color: #fff;
-}
-
-/* 出品ボタン */
-.form-actions {
-    text-align: center;
-    margin-top: 30px;
-}
-
-.btn-sell-button {
-    display: block;
-    width: 100%;
-    /* ← input と同じ幅に */
-    max-width: 100px;
-    /* ← 販売価格の input と同じくらいに調整 */
-    margin: 0 auto;
-    /* ← 中央寄せ */
-    background-color: #ff5555;
-    /* ← 色を指定 */
-    color: #fff;
-    border: none;
-    padding: 14px 0;
-    font-size: 16px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 0 auto;
-}
-
-.btn-sell-button:hover {
-    background-color: #e14a4a;
-}
-
-.price-input {
-    display: flex;
-    align-items: center;
-}
-
-.price-input .yen-mark {
-    margin-right: 5px;
-    font-weight: bold;
-}
-
-.price-input input {
-    flex: 1;
-    padding: 5px;
-}
-
-.price-input span {
-    margin-right: 4px;
-    font-weight: bold;
-    color: #5f5f5f;
-}
-
-.section-title {
-    font-weight: bold;
-    font-size: 30px;
-    color: #5f5f5f;
-    display: block;
-    margin-top: 20px;
-}
-
-.section-line {
-    border: none;
-    border-bottom: 1px solid #5f5f5f;
-    margin: 4px 0 12px;
-}
-
-/* ラベルを黒に統一 */
-.sell-form label,
-.category-options label {
-    color: #000 !important;
-}
-
-/* 出品ボタンの最優先ルール */
-.sell-form .btn-sell-button {
-    display: block;
-    width: 100% !important;
-    /* ← 強制的に横幅いっぱい */
-    background-color: #ff5555 !important;
-    /* ← 強制的に色を適用 */
-    color: #fff !important;
-    border: none !important;
-    padding: 14px 0 !important;
-    font-size: 16px !important;
-    border-radius: 6px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    margin: 0 auto !important;
-}
-
+/* ================================
+   商品画像アップロード
+================================ */
 .img-preview-wrapper {
+    border: 2px dotted #ccc;
+    background-color: #f2f2f2;
+    padding: 25px;
+    border-radius: 8px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    box-sizing: border-box;
     flex-direction: column;
-    align-items: flex-start;
 }
 
+/* 赤いボタン */
+.img_url-upload-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 165px;
+    height: 43.46px;
+    background-color: #ffffff;
+    border: 1px solid #ff5655;
+    color: #ff5555 !important;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
+}
+
+.img_url-upload-box:hover {
+    background-color: #ffecec;
+    border-color: #ff5655;
+}
+
+/* input[type=file] を隠す */
+#img_url {
+    display: none;
+}
+
+/* プレビュー画像 */
 #preview-area {
     margin-top: 10px;
     width: 100%;
@@ -282,51 +132,166 @@
     object-fit: contain;
 }
 
+/* ================================
+   カテゴリー
+================================ */
+.category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-tags input[type="checkbox"] {
+    display: none;
+}
+
+.category-tags label {
+    color: #ff5555;
+    border: 1px solid #ff5555;
+    background-color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.category-tags input[type="checkbox"]:checked + label {
+    background-color: #ff5555;
+    color: #fff;
+}
+
+/* ================================
+   販売価格
+================================ */
+.price-input {
+    position: relative;
+}
+
+.price-input .yen-mark {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    color: #555;
+    pointer-events: none;
+}
+
+.price-input input {
+    padding-left: 28px;
+}
+
+/* ================================
+   セクションタイトル
+================================ */
+.section-title {
+    font-weight: bold;
+    font-size: 30px;
+    color: #5f5f5f;
+    display: block;
+    margin-top: 20px;
+}
+
+.section-line {
+    border: none;
+    border-bottom: 1px solid #5f5f5f;
+    margin: 4px 0 12px;
+}
+
+/* ================================
+   出品ボタン
+================================ */
+.form-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-sell-button {
+    display: block;
+    width: 100%;
+    max-width: 620px; /* ← 入力欄と同じ幅 */
+    margin: 20px auto 0;
+    background-color: #ff5555;
+    color: #fff;
+    border: none;
+    padding: 14px 0;
+    font-size: 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-sell-button:hover {
+    background-color: #e14a4a;
+}
+
+.img_url-upload-box {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
 /* =============================
    レスポンシブ対応
 ============================= */
 
-/* PC幅（1400px～1540px） */
-@media screen and (min-width: 1400px) and (max-width: 1540px) {
+/* ================================
+   PC幅（1400px〜1540px）
+================================ */
+@media (min-width: 1400px) and (max-width: 1540px) {
     .sell-container {
-        max-width: 800px;
-        /* ← PCの大画面用に少し広げる */
+        max-width: 900px;
         padding: 50px;
     }
 
-    .btn-sell {
-        max-width: 200px !important;
-        /* ボタンを少し広めに */
+    .btn-sell-button {
+        max-width: 700px;
+    }
+
+    .img-preview-wrapper {
+        padding: 35px;
     }
 }
 
-/* タブレット幅（768px～850px） */
-@media screen and (min-width: 768px) and (max-width: 850px) {
+/* ================================
+   タブレット幅（768px〜850px）
+================================ */
+@media (min-width: 768px) and (max-width: 850px) {
     .sell-container {
         max-width: 90%;
-        /* 横幅を画面にフィット */
-        padding: 20px;
+        padding: 25px;
     }
 
     .sell-title {
         font-size: 22px;
-        /* 見出しを少し小さめに */
     }
 
-    .btn-sell {
-        max-width: 100% !important;
-        /* 横幅いっぱいに */
-        font-size: 15px !important;
-        padding: 12px 0 !important;
+    .category-tags label {
+        padding: 6px 12px;
+        font-size: 13px;
     }
 
-    .price-input {
-        flex-direction: column;
-        /* 金額欄を縦並びに */
-        align-items: flex-start;
+    .img_url-upload-box {
+        width: 150px;
+        height: 40px;
+        font-size: 13px;
     }
 
-    .price-input input {
-        width: 100%;
+    .btn-sell-button {
+        max-width: 500px;
+        padding: 12px 0;
+        font-size: 15px;
+    }
+
+    .img-preview-wrapper {
+        padding: 20px;
+        min-height: 100px;
+    }
+
+    #preview-image {
+        max-width: 250px;
+        max-height: 250px;
     }
 }

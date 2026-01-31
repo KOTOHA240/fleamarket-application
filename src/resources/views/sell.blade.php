@@ -17,7 +17,7 @@
 
             <div class="img-preview-wrapper">
                 <label  class="img_url-upload-box" for="img_url">
-                    <span>画像を選択する</span>
+                    画像を選択する
                 </label>
                 <input type="file" name="img_url" id="img_url" accept="image/*">
                 <div id="preview-area">
