@@ -41,7 +41,12 @@
             @forelse($myList as $product)
                 <div class="product-item">
                     <a href="{{ route('items.show', $product->id) }}">
-                        <img src="{{ asset('storage/' . $product->img_url) }}" alt="{{ $product->name }}">
+                        <div class="product-image-wrapper">
+                            @if($product->is_sold)
+                                <div class="sold-label">Sold</div>
+                            @endif
+                            <img src="{{ asset('storage/' . $product->img_url) }}" alt="{{ $product->name }}">
+                        </div>
                         <p>{{ $product->name }}</p>
                     </a>
                 </div>
@@ -64,3 +69,4 @@ document.querySelectorAll('.tab-button').forEach(button => {
 </script>
 
 @endsection
+

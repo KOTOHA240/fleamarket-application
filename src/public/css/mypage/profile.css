@@ -65,6 +65,7 @@
     border-radius: 50% !important;
     /* 丸型にしたい場合 */
     border: 2px solid #ccc;
+    position: relative;
 }
 
 .profile-icon-wrapper {
@@ -88,6 +89,28 @@
     font-size: 12px;
     text-align: center;
     line-height: 120px;
+}
+
+.profile-icon.no-image[src=""] {
+    background-color: #ccc;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+    content: "No Image";
+}
+
+.profile-icon[src=""]::before {
+    content: "No Image";
+    color: #666;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .profile-image-row {

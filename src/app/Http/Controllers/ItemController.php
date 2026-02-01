@@ -22,7 +22,8 @@ class ItemController extends Controller
 
             if (auth()->check()) {
                 $likedItemIds = Like::where('user_id', auth()->id())->pluck('item_id');
-                $myListQuery = Item::whereIn('id', $likedItemIds);
+                $myListQuery = Item::whereIn('id', $likedItemIds)
+                    ->where('user_id', '!=', auth()->id());
 
                 if (!empty($keyword)) {
                     $myListQuery->where(function ($q) use ($keyword) {
