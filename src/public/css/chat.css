@@ -1,0 +1,392 @@
+/* 全体レイアウト */
+.chat-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+
+/* サイドバー */
+.chat-sidebar {
+    width: 259px;
+    background: #868686;
+    color: #ffffff;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ← ここが今回の修正ポイント！ */
+.chat-sidebar h3 {
+    font-size: 20px;
+    margin: 0 0 20px 0; /* タイトル下に余白をつける */
+    padding: 16px 0 8px 16px; /* 左に少し余白をつけると見栄えUP */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.chat-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 商品名の枠 */
+.chat-sidebar li {
+    width: 197px;
+    height: 40px;
+    margin: 0 auto 16px; /* ← 下に16pxの余白をつける */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #EEEFEB;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.chat-sidebar li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+    display: block;
+    line-height: 40px;
+}
+
+.chat-sidebar li:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+/* メインエリア */
+.chat-main {
+    flex: 1;
+    padding: 24px 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 上部：相手情報 */
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ddd;
+}
+
+.user-info span {
+    font-size: 28px;
+}
+
+/* 商品情報 */
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 12px 0;
+    border-top: 2px solid #5F5F5F;
+    border-bottom: 2px solid #5F5F5F;
+}
+
+.item-image {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    background: #f0f0f0;
+    display: block;
+}
+
+.item-name {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.item-price {
+    font-size: 28px;
+}
+
+/* チャット欄 */
+.chat-messages {
+    flex: 1;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 16px 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.chat-message-row {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+}
+
+.chat-message-row.mine {
+    margin-left: auto;
+    text-align: right;
+}
+
+.chat-message-row.theirs {
+    margin-right: auto;
+    text-align: left;
+}
+
+/* 名前＋アイコン */
+.chat-user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.chat-user-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.chat-message-row.theirs .chat-user-info {
+    flex-direction: row;
+}
+
+.chat-message-row.mine .chat-user-info {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+/* 吹き出し */
+.message-buble {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: #f1f1f1;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.chat-message-row.mine .message-buble {
+    background: #D9D9D9;
+}
+
+.timestamp {
+    font-size: 10px;
+    color: #888;
+    margin-top: 4px;
+}
+
+/* メッセージ入力エリア */
+.chat-input-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.chat-input-area textarea {
+    flex: 1;
+    height: 38px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
+    padding: 8px 10px;
+    resize: none;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+/* 画像を追加ボタン */
+.image-upload {
+    width: 120px;
+    height: 38px;
+    border-radius: 4px;
+    border: 2px solid #ff5555;
+    background: #ff5555;
+    color: #ffffff;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.image-upload input[type="file"] {
+    display: none;
+}
+
+/* 送信ボタン */
+.send-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-icon {
+    width: 64px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.message-actions {
+    margin-top: 2px;
+    display: flex;
+    gap: 6px;
+    font-size: 12px;
+    justify-content: flex-end;
+}
+
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    text-decoration: underline;
+}
+
+.delete-btn:hover {
+    text-decoration: underline;
+    color: red;
+}
+
+.finish-btn {
+    background: #ff5555;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+}
+
+/* モーダル背景（薄い黒） */
+.rating-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* 白いカード部分 */
+.rating-modal-content {
+    background: #FDFCE6;
+    width: 420px;
+    padding: 32px 28px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+/* タイトル */
+.rating-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* サブタイトル */
+.rating-subtitle {
+    font-size: 16px;
+    color: #868686;
+    margin-bottom: 20px;
+}
+
+/* 星評価 */
+.star-rating {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    direction: rtl;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 40px;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* 星が選択された時の色 */
+.star-rating input:checked ~ label {
+    color: #ccc; /* 一旦リセット */
+}
+
+/* ホバー時の色 */
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #FFD700;
+}
+
+/* 選択された星より左側を黄色に */
+.star-rating input:checked + label,
+.star-rating input:checked + label ~ label {
+    color: #FFD700;
+}
+
+.rating-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #E0E0E0;
+    margin: 16px 0; /* 上下の余白 */
+}
+
+
+/* 送信ボタン */
+.rating-submit-btn {
+    width: 100%;
+    background: #ff5555;
+    color: white;
+    padding: 12px 0;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+
+/* キャンセルボタン */
+.rating-cancel-btn {
+    width: 100%;
+    background: #ddd;
+    color: #333;
+    padding: 10px 0;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+}

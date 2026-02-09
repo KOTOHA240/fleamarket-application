@@ -82,4 +82,3 @@ class PurchaseController extends Controller
         return redirect()->back()->withErrors(['paymant_method' => '支払い方法が不正です']);
     }
 }
-

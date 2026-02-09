@@ -93,3 +93,49 @@
     line-height: 1.4;
     max-height: 2.8em;
 }
+
+.profile-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.profile-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.name-rating-column {
+    display: flex;
+    flex-direction: column; /* ← 名前と星を縦並びにする */
+    gap: 4px;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.rating-stars .star {
+    font-size: 20px;
+    color: #ddd; /* グレーの星（未評価） */
+}
+
+.rating-stars .star.filled {
+    color: #FFD700; /* 黄色い星（評価） */
+}
+
+/* プロフィール編集ボタン（白背景・赤文字） */
+.edit-profile-btn {
+    padding: 8px 16px;
+    background-color: #fff !important;
+    color: #ff4d4f !important; /* 赤文字 */
+    border: 2px solid #ff4d4f;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 600;
+}

@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -53,4 +54,18 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', '認証メールを再送しました！');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::get('/transactions/{transaction}/chat', [TransactionController::class, 'chat'])
+    ->middleware('auth')
+    ->name('transactions.chat');
+Route::post('/transactions/{transaction}/chat', [TransactionController::class, 'sendMessage'])
+    ->middleware('auth')
+    ->name('transactions.chat.send');
+Route::patch('/transactions/{transaction}/messages/{message}', [TransactionController::class, 'updateMessage'])
+    ->name('messages.update');
 
+Route::delete('/transactions/{transaction}/messages/{message}', [TransactionController::class, 'destroyMessage'])
+    ->name('messages.destroy');
+Route::post('/transactions/{transaction}/rate', [TransactionController::class, 'rate'])
+    ->name('transactions.rate');
+Route::post('/transactions/{transaction}/finish', [TransactionController::class, 'finish'])
+    ->name('transactions.finish');

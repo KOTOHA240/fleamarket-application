@@ -8,6 +8,7 @@ use Stripe\Checkout\Session;
 use App\Models\Item;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Transaction;
 
 class StripeController extends Controller
 {
@@ -57,9 +58,8 @@ class StripeController extends Controller
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $session = \Stripe\Checkout\Session::retrieve($sessionId);
 
-        if (in_array('card', $session->payment_method_types)) {
-            // ✅ カード払いは即時決済なのでここで購入処理
-            Purchase::create([
+        if ($session->payment_status === 'paid') {
+            Purchase::firstorCreate([
                 'user_id' => Auth::id(),
                 'item_id' => $item->id,
             ]);
@@ -67,20 +67,22 @@ class StripeController extends Controller
             $item->is_sold = true;
             $item->save();
 
-            return redirect()->route('home')->with('success', 'カード決済が完了しました！');
-        } else {
-            // ✅ コンビニ払いは未決済なので購入処理しない
-            return redirect()->route('home')->with(
-                'success',
-                'コンビニ支払いの受付が完了しました。お支払い完了後に購入が確定します。'
+            Transaction::firstOrCreate(
+                ['item_id' => $item->id],
+                [
+                    'buyer_id' => Auth::id(),
+                    'seller_id' => $item->user_id,
+                    'status' => 'in_progress',
+                ]
             );
-        }
 
-        Purchase::create([
-            'user_id' => Auth::id(),
-            'item_id' => $item->id,
-            'payment_method' => 'カード払い',
-        ]);
+            return redirect()->route('home')->with('success', 'カード決済が完了しました！');
+        }
+            // ✅ コンビニ払いは未決済なので購入処理しない
+        return redirect()->route('home')->with(
+            'success',
+            'コンビニ支払いの受付が完了しました。お支払い完了後に購入が確定します。'
+        );
     }
 
     public function cancel()

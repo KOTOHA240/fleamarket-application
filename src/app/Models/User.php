@@ -70,4 +70,51 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function sellingTransactions()
+    {
+        return $this->hasMany(Trnsaction::class, 'seller_id');
+    }
+
+    public function buyingTransactions() 
+    {
+        return $this->hasMany(Transaction::class, 'buyer_id');
+    }
+
+    public function receivedRatings()
+    {
+        return Transaction::where(function ($q) {
+            $q->where('seller_id', $this->id)
+              ->whereNotNull('buyer_rating');
+        })
+        ->orWhere(function ($q) {
+            $q->where('buyer_id', $this->id)
+              ->whereNotNull('seller_rating');
+        });
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        $ratings = [];
+
+        // 出品者として受け取った評価
+        $sellerRatings = Transaction::where('seller_id', $this->id)
+            ->whereNotNull('buyer_rating')
+            ->pluck('buyer_rating')
+            ->toArray();
+
+        // 購入者として受け取った評価
+        $buyerRatings = Transaction::where('buyer_id', $this->id)
+            ->whereNotNull('seller_rating')
+            ->pluck('seller_rating')
+            ->toArray();
+
+        $ratings = array_merge($sellerRatings, $buyerRatings);
+
+        if (count($ratings) === 0) {
+            return null; // 評価なし
+        }
+
+        return round(array_sum($ratings) / count($ratings));
+    }
 }

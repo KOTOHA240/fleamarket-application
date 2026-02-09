@@ -51,7 +51,7 @@ body {
 
 /* メイン部分の余白 */
 main {
-    padding: 40px 20px;
+    padding: 0;
     display: flex;
     justify-content: center;
 }

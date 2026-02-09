@@ -43,4 +43,9 @@ class Item extends Model
     {
         return $this->likes->contains('user_id', $user->id);
     }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
 }
