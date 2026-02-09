@@ -14,9 +14,10 @@ RUN docker-php-ext-install \
     pdo_mysql \
     zip \
     mbstring \
-    bcmathFROM php:8.3-fpm
+    bcmathFROM
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 WORKDIR /var/www
+
 
