@@ -39,7 +39,12 @@
         <a href="{{ route('mypage.index', ['page' => 'buy']) }}" 
            class="{{ $tab === 'buy' ? 'active' : '' }}">購入した商品</a>
         <a href="{{ route('mypage.index', ['page' => 'transaction']) }}"
-            class="{{ $tab === 'transaction' ? 'active' : '' }}">取引中の商品</a>
+            class="{{ $tab === 'transaction' ? 'active' : '' }}">
+            取引中の商品
+            @if ($notificationCount > 0)
+                <span class="badge">{{ $notificationCount }}</span>
+            @endif
+        </a>
     </div>
 
     {{-- 商品一覧 --}}
@@ -65,6 +70,16 @@
                     <a href="{{ route('transactions.chat', $transaction->id) }}">
                         <div class="image">
                             <img src="{{ asset('storage/' . $transaction->item->img_url) }}" alt="{{ $transaction->item->name }}">
+                            @php
+                                $unreadForThisItem = $transaction->messages
+                                    ->where('is_read', false)
+                                    ->where('sender_id', '!=', $user->id)
+                                    ->count();
+                            @endphp
+
+                            @if ($unreadForThisItem > 0)
+                                <span class="item-badge">{{ $unreadForThisItem }}</span>
+                            @endif
                         </div>
                         <p>{{ $transaction->item->name }}</p>
                     </a>

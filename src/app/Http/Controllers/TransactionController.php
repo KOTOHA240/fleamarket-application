@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\Message;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TransactionCompletedMail;
+use App\Http\Requests\MessageRequest;
 
 class TransactionController extends Controller
 {
@@ -29,6 +30,11 @@ class TransactionController extends Controller
         ->with('item')
         ->get();
 
+        Message::where('transaction_id', $transaction->id)
+            ->where('sender_id', '!=', auth()->id())
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
         $messages = $transaction->messages()
             ->with('sender')
             ->orderBy('created_at')
@@ -49,13 +55,12 @@ class TransactionController extends Controller
                 abort(403);
         }
 
-        $request->validate([
-            'message' => 'required|string|max:400',
-        ]);
-
         $transaction->messages()->create([
             'sender_id' => auth()->id(),
             'message' => $request->message,
+            'image_path' => $request->file('image')
+                ? $request->file('image')->store('messages', 'public')
+                : null,
         ]);
 
         return redirect()->route('transactions.chat', $transaction);

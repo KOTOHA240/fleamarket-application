@@ -92,6 +92,14 @@
         </div>
 
         {{-- メッセージ入力欄 --}}
+        @if ($errors->any())
+            <div class="error-messages">
+                @foreach ($errors->all() as $error)
+                    <p class="error-text">{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
+        
         <form action="{{ route('transactions.chat.send', $transaction->id) }}" method="POST" enctype="multipart/form-data" class="chat-input-area">
             @csrf
 
