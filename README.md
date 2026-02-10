@@ -65,17 +65,17 @@ localhost:8025 にアクセスして認証メールを確認します。
 
 ## テストアカウント
 
-- name: 出品者A
-- email: sellerA@example.com
-- password: password
+- **出品者A**  
+  - email: sellerA@example.com  
+  - password: password  
 
-- name: 出品者B
-- email: sellerB@example.com
-- password: password
+- **出品者B**  
+  - email: sellerB@example.com  
+  - password: password  
 
-- name: ダミーユーザーC
-- email: userC@example.com
-- password: password
+- **ダミーユーザーC**  
+  - email: userC@example.com  
+  - password: password  
 
 ## URL
 
