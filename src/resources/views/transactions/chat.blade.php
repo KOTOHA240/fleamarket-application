@@ -99,7 +99,7 @@
                 @endforeach
             </div>
         @endif
-        
+
         <form action="{{ route('transactions.chat.send', $transaction->id) }}" method="POST" enctype="multipart/form-data" class="chat-input-area">
             @csrf
 
@@ -176,7 +176,6 @@ function closeEditForm() {
             <div class="rating-divider"></div>
 
             <button type="submit" class="rating-submit-btn">送信する</button>
-            <button type="button" class="rating-cancel-btn" onclick="closeRatingModal()">キャンセル</button>
         </form>
 
     </div>

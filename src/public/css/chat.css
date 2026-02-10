@@ -309,9 +309,10 @@
 
 /* タイトル */
 .rating-title {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 8px;
+    text-align: left;
 }
 
 /* サブタイトル */
@@ -319,6 +320,7 @@
     font-size: 16px;
     color: #868686;
     margin-bottom: 20px;
+    text-align: left;
 }
 
 /* 星評価 */
@@ -335,7 +337,7 @@
 }
 
 .star-rating label {
-    font-size: 40px;
+    font-size: 65px;
     color: #ccc;
     cursor: pointer;
     transition: 0.2s;
@@ -368,27 +370,16 @@
 
 /* 送信ボタン */
 .rating-submit-btn {
-    width: 100%;
+    width: 140px;
     background: #ff5555;
     color: white;
-    padding: 12px 0;
+    padding: 10px 0;
     border: none;
     border-radius: 12px;
     font-size: 16px;
     cursor: pointer;
-    margin-bottom: 12px;
-}
-
-/* キャンセルボタン */
-.rating-cancel-btn {
-    width: 100%;
-    background: #ddd;
-    color: #333;
-    padding: 10px 0;
-    border: none;
-    border-radius: 12px;
-    font-size: 14px;
-    cursor: pointer;
+    margin-left: auto;
+    display: block;
 }
 
 .error-text {
