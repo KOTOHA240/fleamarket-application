@@ -48,6 +48,11 @@ php artisan db:seed
 php artisan storage:link
 ```
 
+## メール認証
+
+mailhogを使用しています。
+localhost:8025 にアクセスして認証メールを確認します。
+
 ## 使用技術
 
 - PHP8.2.29
@@ -58,7 +63,28 @@ php artisan storage:link
 
 ![ER図](./src/index.drawio.png)
 
+## テストアカウント
+
+- name: 出品者A
+- email: sellerA@example.com
+- password: password
+
+- name: 出品者B
+- email: sellerB@example.com
+- password: password
+
+- name: ダミーユーザーC
+- email: userC@example.com
+- password: password
+
 ## URL
 
 - 開発環境：http://localhost/
+- ユーザーログイン: http://localhost/login
 - phpMyAdmin:：http://localhost:8080/
+
+## 注意事項
+
+- Dockerコンテナ起動後、必ず`composer install`を実行してください
+- 初回起動後は`php artisan migrate --seed`を実行してください
+- `.env`ファイルが存在しない場合、`.env.example`をコピーして作成してください
