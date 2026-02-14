@@ -48,7 +48,7 @@ class TransactionController extends Controller
         ));
     }
 
-    public function sendMessage(Request $request, Transaction $transaction)
+    public function sendMessage(MessageRequest $request, Transaction $transaction)
     {
         if (auth()->id() !== $transaction->buyer_id &&
             auth()->id() !== $transaction->seller_id) {

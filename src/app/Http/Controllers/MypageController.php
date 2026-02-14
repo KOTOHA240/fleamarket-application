@@ -42,12 +42,23 @@ class MypageController extends Controller
             $products = [];
 
             $transactions = Transaction::where(function ($q) use ($user) {
-                $q->where('buyer_id', $user->id)
-                  ->orWhere('seller_id', $user->id);
-            })
-            ->where('status', 'in_progress')
-            ->with('item')
-            ->get();
+                    $q->where('buyer_id', $user->id)
+                      ->orWhere('seller_id', $user->id);
+                })
+                ->where('status', 'in_progress')
+                ->with(['item', 'messages' => function ($q) {
+                    $q->orderBy('created_at', 'desc');
+                }])
+                ->get();
+            
+            $transactions = $transactions->sortByDesc(function ($transaction) use ($user) {
+                $latestMessage = $transaction->messages
+                    ->where('sender_id', '!=', $user->id)
+                    ->sortByDesc('created_at')
+                    ->first();
+                
+                return $latestMessage ? $latestMessage->created_at : $transaction->created_at;
+            });
         }
 
         return view('mypage.index', compact('user', 'tab', 'products', 'transactions', 'notificationCount'));

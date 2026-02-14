@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model 
 { 
     protected $fillable = [
-        'transaction_id', 'sender_id', 'message',
+        'transaction_id', 'sender_id', 'message', 'image_path',
     ];
 
     public function transaction() {

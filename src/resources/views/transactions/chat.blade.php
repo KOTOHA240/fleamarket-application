@@ -69,7 +69,17 @@
                     </div>
                     
                     <div class="message-buble">
-                        {{ $message->message }}
+                        {{-- テキスト --}}
+                        @if ($message->message)
+                            {!! nl2br(e($message->message)) !!}
+                        @endif
+
+                        {{-- 画像 --}}
+                        @if ($message->image_path)
+                            <div class="chat-image">
+                                <img src="{{ asset('storage/' . $message->image_path) }}" alt="送信画像">
+                            </div>
+                        @endif
                     </div>
 
                     @if ($message->sender_id === auth()->id())
@@ -104,12 +114,12 @@
             @csrf
 
             {{-- 入力保持（old() で実現） --}}
-            <textarea name="message" placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
+            <textarea id="chat-input" name="message" placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
 
             {{-- 画像追加 --}}
             <label class="image-upload">
                 画像を追加
-                <input type="file" name="image" accept="image/*">
+                <input type="file" name="image" accept="image/*" style="display:block;">
             </label>
 
             {{-- 送信ボタン（紙飛行機アイコン） --}}
@@ -198,5 +208,29 @@ function closeEditForm() {
         };
     </script>
 @endif
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const textarea = document.getElementById('chat-input');
+    const key = 'chat_draft_{{ $transaction->id }}'; // 取引ごとに別保存
+
+    // ページ読み込み時に保存内容を復元
+    const saved = localStorage.getItem(key);
+    if (saved) {
+        textarea.value = saved;
+    }
+
+    // 入力のたびに保存
+    textarea.addEventListener('input', () => {
+        localStorage.setItem(key, textarea.value);
+    });
+
+    // 送信したら削除
+    const form = textarea.closest('form');
+    form.addEventListener('submit', () => {
+        localStorage.removeItem(key);
+    });
+});
+</script>
 
 @endsection
